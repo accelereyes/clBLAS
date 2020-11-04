@@ -46,7 +46,7 @@ set_target_properties( t_tilemul PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_
 
 # CPack configuration; include the executable into the package
 install( TARGETS t_tilemul
-		RUNTIME DESTINATION bin${SUFFIX_BIN}
-		LIBRARY DESTINATION lib${SUFFIX_LIB}
-		ARCHIVE DESTINATION lib${SUFFIX_LIB}/import
+		RUNTIME DESTINATION bin${CLBLAS_SUFFIX_BIN}
+		LIBRARY DESTINATION lib${CLBLAS_SUFFIX_LIB}
+		ARCHIVE DESTINATION lib${CLBLAS_SUFFIX_LIB}/import
 		)

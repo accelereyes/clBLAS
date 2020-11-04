@@ -24,55 +24,55 @@ find_package(PythonInterp REQUIRED)
 
 # AutoGemm scripts and out files
 set(AUTOGEMM_SCRIPTS
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/AutoGemm.py
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/AutoGemmParameters.py
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/Common.py
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/Includes.py
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/KernelOpenCL.py
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/KernelParameters.py
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/KernelSelection.py
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/KernelsToPreCompile.py
+  ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/AutoGemm.py
+  ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/AutoGemmParameters.py
+  ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/Common.py
+  ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/Includes.py
+  ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/KernelOpenCL.py
+  ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/KernelParameters.py
+  ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/KernelSelection.py
+  ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/KernelsToPreCompile.py
 )
 set(AUTOGEMM_HEADERS
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmClKernels.h
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBuildOptionsBinary.h
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBinaries.h
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSelection.h
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSelectionSpecific.h
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBuildOptionsSource.h
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSources.h
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmClKernels.h
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBuildOptionsBinary.h
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBinaries.h
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSelection.h
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSelectionSpecific.h
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBuildOptionsSource.h
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSources.h
 )
 
 set(AUTOGEMM_SRC
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmClKernels.cpp
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBuildOptionsBinary.cpp
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBinaries.cpp
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSelection.cpp
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSelectionSpecific.cpp
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBuildOptionsSource.cpp
-  ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSources.cpp
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmClKernels.cpp
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBuildOptionsBinary.cpp
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBinaries.cpp
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSelection.cpp
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSelectionSpecific.cpp
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelBuildOptionsSource.cpp
+  ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelSources.cpp
 )
 
 set(USERGEMM_SRC
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/UserGemmKernelSources/UserGemmClKernels.cc
+    ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/UserGemmKernelSources/UserGemmClKernels.cc
 )
 
 set(USERGEMM_HEADERS
-   ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/UserGemmKernelSources/UserGemmKernelSourceIncludes.h
-   ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/UserGemmKernelSources/UserGemmClKernels.h
+    ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/UserGemmKernelSources/UserGemmKernelSourceIncludes.h
+    ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/UserGemmKernelSources/UserGemmClKernels.h
 )
 
 set(AUTOGEMM_TEST_SRC
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/AutoGemmTools/TestAutoGemm.cpp
+    ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/AutoGemmTools/TestAutoGemm.cpp
 )
 set(AUTOGEMM_PROFILER_SRC
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/AutoGemmTools/ProfileAutoGemm.cpp
+    ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/AutoGemmTools/ProfileAutoGemm.cpp
 )
 set(AUTOGEMM_PRECOMPILE_SRC
-  ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/AutoGemmTools/AutoGemmPreCompileKernels.cpp
+    ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/AutoGemmTools/AutoGemmPreCompileKernels.cpp
 )
 set( AUTOGEMM_PRECOMPILED_KERNELS
-  ${CMAKE_BINARY_DIR}/include/AutoGemmKernelBinaries/AutoGemmKernelBinariesPreCompiled.h
+  ${clBLAS_BINARY_DIR}/include/AutoGemmKernelBinaries/AutoGemmKernelBinariesPreCompiled.h
 )
 
 # AutoGemm options for pre-compiling kernels
@@ -141,7 +141,7 @@ else()
 endif()
 
 # build commandline argument for AutoGemm
-set( AGPC_ARGS --output ${CMAKE_BINARY_DIR}/include )
+set( AGPC_ARGS --output ${clBLAS_BINARY_DIR}/include )
 
 if ( PRECOMPILE_GEMM_ACTIVE )
   # precisions
@@ -200,11 +200,11 @@ if ( PRECOMPILE_GEMM_ACTIVE )
 ################################################################################
 # add target for generating pre-compile WhichKernels header
 ################################################################################
-set( AUTOGEMM_PRECOMPILE_HEADER_SRC ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/KernelsToPreCompile.py )
-set( AUTOGEMM_PRECOMPILE_HEADER_OUT ${CMAKE_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelsToPreCompile.h )
+set( AUTOGEMM_PRECOMPILE_HEADER_SRC ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/KernelsToPreCompile.py )
+set( AUTOGEMM_PRECOMPILE_HEADER_OUT ${clBLAS_BINARY_DIR}/include/AutoGemmIncludes/AutoGemmKernelsToPreCompile.h )
 add_custom_command(
   OUTPUT ${AUTOGEMM_PRECOMPILE_HEADER_OUT}
-  COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/KernelsToPreCompile.py ${AGPC_ARGS}
+  COMMAND ${PYTHON_EXECUTABLE} ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/KernelsToPreCompile.py ${AGPC_ARGS}
   DEPENDS ${AUTOGEMM_PRECOMPILE_HEADER_SRC}
 )
 
@@ -216,7 +216,6 @@ add_executable(AutoGemm_PreCompile_Bin
   ${AUTOGEMM_PRECOMPILE_HEADER_OUT}
   ${AUTOGEMM_HEADERS}
   ${AUTOGEMM_SRC}
-  ${AUTOGEMM_SCRIPTS}
   )
 target_link_libraries(AutoGemm_PreCompile_Bin ${OPENCL_LIBRARIES})
 set_property( TARGET AutoGemm_PreCompile_Bin PROPERTY FOLDER "AutoGemm")
@@ -233,7 +232,7 @@ set_property( TARGET AutoGemm_PreCompile_Bin PROPERTY FOLDER "AutoGemm")
 ################################################################################
 add_custom_command(
   OUTPUT ${AUTOGEMM_PRECOMPILED_KERNELS}
-  COMMAND AutoGemm_PreCompile_Bin ${CMAKE_BINARY_DIR}
+  COMMAND AutoGemm_PreCompile_Bin ${clBLAS_BINARY_DIR}
   DEPENDS AutoGemm_PreCompile_Bin
 )
 
@@ -245,15 +244,15 @@ endif()#endif precompile active
 ################################################################################
 add_custom_command(
   OUTPUT ${AUTOGEMM_HEADERS} ${AUTOGEMM_SRC}
-  COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/library/blas/AutoGemm/AutoGemm.py --output-path ${CMAKE_BINARY_DIR}/include --opencl-compiler-version ${OPENCL_VERSION} --architecture ${AUTOGEMM_ARCHITECTURE}
+  COMMAND ${PYTHON_EXECUTABLE} ${clBLAS_SOURCE_DIR}/library/blas/AutoGemm/AutoGemm.py --output-path ${clBLAS_BINARY_DIR}/include --opencl-compiler-version ${OPENCL_VERSION} --architecture ${AUTOGEMM_ARCHITECTURE}
   DEPENDS ${AUTOGEMM_SCRIPTS}
 )
 
 
 include_directories(
     ${OPENCL_INCLUDE_DIRS}
-    ${CMAKE_SOURCE_DIR}
-    ${CMAKE_BINARY_DIR}/include
+    ${clBLAS_SOURCE_DIR}
+    ${clBLAS_BINARY_DIR}/include
     .
 )
 
@@ -264,7 +263,6 @@ add_executable(AutoGemm_Tools_Test
   ${AUTOGEMM_TEST_SRC}
   ${AUTOGEMM_SRC}
   ${AUTOGEMM_HEADERS}
-  ${AUTOGEMM_SCRIPTS}
   )
 target_link_libraries(AutoGemm_Tools_Test ${OPENCL_LIBRARIES})
 set_property( TARGET AutoGemm_Tools_Test PROPERTY FOLDER "AutoGemm")
@@ -280,7 +278,6 @@ add_executable(AutoGemm_Tools_Profile
   ${AUTOGEMM_PROFILER_SRC}
   ${AUTOGEMM_SRC}
   ${AUTOGEMM_HEADERS}
-  ${AUTOGEMM_SCRIPTS}
   )
 target_link_libraries(AutoGemm_Tools_Profile ${OPENCL_LIBRARIES})
 set_property( TARGET AutoGemm_Tools_Profile PROPERTY FOLDER "AutoGemm")
@@ -657,7 +654,8 @@ source_group(blas\\include FILES ${SRC_BLAS_HEADERS})
 source_group(blas\\generic FILES ${SRC_BLAS_GENERIC})
 source_group(blas\\gens FILES ${SRC_BLAS_GENS} ${SRC_BLAS_GENS_HEADERS})
 
-include_directories(${OPENCL_INCLUDE_DIRS}
+include_directories(
+    ${OPENCL_INCLUDE_DIRS}
     ${clBLAS_SOURCE_DIR}
     ${clBLAS_SOURCE_DIR}/include
     ${clBLAS_SOURCE_DIR}/library/blas/include
@@ -692,8 +690,9 @@ endif()
 
 include( ExternalProject )
 ExternalProject_Add( tplgen
-    URL "${CMAKE_SOURCE_DIR}/library/tools/tplgen"
+    DOWNLOAD_COMMAND ""
     INSTALL_COMMAND ""
+    SOURCE_DIR ${clBLAS_SOURCE_DIR}/library/tools/tplgen
 )
 
 ################OCLBinaryGenerator
@@ -701,7 +700,7 @@ if (PRECOMPILE_TRSM_DTRSM OR PRECOMPILE_TRSM_STRSM)
 
 
 ExternalProject_Add( OCLBinaryGenerator
-	URL "${CMAKE_SOURCE_DIR}/library/tools/OCLBinaryGenerator"
+    URL "${clBLAS_SOURCE_DIR}/library/tools/OCLBinaryGenerator"
 	CMAKE_ARGS -DOPENCL_LIBRARIES=${OPENCL_LIBRARIES} -DOPENCL_INCLUDE_DIRS=${OPENCL_INCLUDE_DIRS}
 	INSTALL_COMMAND ""
 )
@@ -723,8 +722,10 @@ endif()
 add_custom_target( OCLBinaryGenerator_GEN )
 add_custom_command(TARGET OCLBinaryGenerator_GEN
                    PRE_BUILD
-				   COMMAND ${CMAKE_COMMAND} -DOCLBinaryGeneratorBinaryDir=${OCLBinaryGeneratorBinaryDir} -DSOURCE_DIR=${CMAKE_SOURCE_DIR} -DBINARY_DIR=${CMAKE_BINARY_DIR} -DOCL_COMPILER_FLAGS=${OCL_COMPILER_FLAGS}
-				   -P "${CMAKE_SOURCE_DIR}/library/OCLBinaryGenerator.cmake"
+				   COMMAND ${CMAKE_COMMAND}
+                   -DOCLBinaryGeneratorBinaryDir=${OCLBinaryGeneratorBinaryDir}
+                   -DSOURCE_DIR=${clBLAS_SOURCE_DIR} -DBINARY_DIR=${clBLAS_BINARY_DIR} -DOCL_COMPILER_FLAGS=${OCL_COMPILER_FLAGS}
+                   -P "${clBLAS_SOURCE_DIR}/library/OCLBinaryGenerator.cmake"
 				   )
 add_dependencies( OCLBinaryGenerator_GEN OCLBinaryGenerator )
 
@@ -733,7 +734,7 @@ endif()
 # if offline compilation is not chosen, bingen should not be built
 if(OPENCL_OFFLINE_BUILD_TAHITI_KERNEL OR OPENCL_OFFLINE_BUILD_HAWAII_KERNEL OR OPENCL_OFFLINE_BUILD_BONAIRE_KERNEL)
 	ExternalProject_Add( bingen
-		URL "${CMAKE_SOURCE_DIR}/library/tools/bingen"
+        URL "${clBLAS_SOURCE_DIR}/library/tools/bingen"
 		CMAKE_ARGS -DOPENCL_LIBRARIES=${OPENCL_LIBRARIES} -DOPENCL_INCLUDE_DIRS=${OPENCL_INCLUDE_DIRS}
 		INSTALL_COMMAND ""
 	)
@@ -741,10 +742,10 @@ endif()
 
 message(STATUS "OPENCL_VERSION = ${OPENCL_VERSION}")
 #if( OPENCL_VERSION STREQUAL "2.0")
-#	if(EXISTS ${CMAKE_SOURCE_DIR}/flags.txt)
+#	if(EXISTS ${clBLAS_SOURCE_DIR}/flags.txt)
 #		MESSAGE(STATUS "flags.txt found. will load AMD_OPENCL_BUILD_OPTIONS_APPEND from it.")
 #		set (LOAD_CL_FLAGS TRUE)
-#		file (STRINGS "${CMAKE_SOURCE_DIR}/flags.txt" OPENCL_FLAGS)
+#		file (STRINGS "${clBLAS_SOURCE_DIR}/flags.txt" OPENCL_FLAGS)
 #		MESSAGE(STATUS "OCLFLAGS: ${OPENCL_FLAGS}")
 #		string(REPLACE "OCL " "OCL;" OPENCL_FLAGS_REPLACED ${OPENCL_FLAGS})
 #		list(GET OPENCL_FLAGS_REPLACED 1 OPENCL_FLAGS_REPLACED_1)#flags for TAHITI
@@ -752,10 +753,10 @@ message(STATUS "OPENCL_VERSION = ${OPENCL_VERSION}")
 #		list(GET OPENCL_FLAGS_REPLACED 5 OPENCL_FLAGS_REPLACED_5)#flags for HAWAII 2
 #		list(GET OPENCL_FLAGS_REPLACED 7 OPENCL_FLAGS_REPLACED_7)#flags for BONAIRE
 #		#MESSAGE("${OPENCL_FLAGS_REPLACED_7}")
-#	elseif(EXISTS ${CMAKE_SOURCE_DIR}/flags_public.txt)
+#	elseif(EXISTS ${clBLAS_SOURCE_DIR}/flags_public.txt)
 #		MESSAGE(STATUS "flags_public.txt found. will load AMD_OPENCL_BUILD_OPTIONS_APPEND from it.")
 #		set (LOAD_CL_FLAGS TRUE)
-#		file (STRINGS "${CMAKE_SOURCE_DIR}/flags_public.txt" OPENCL_FLAGS)
+#		file (STRINGS "${clBLAS_SOURCE_DIR}/flags_public.txt" OPENCL_FLAGS)
 #		MESSAGE(STATUS "OCLFLAGS: ${OPENCL_FLAGS}")
 #		string(REPLACE "OCL " "OCL;" OPENCL_FLAGS_REPLACED ${OPENCL_FLAGS})
 #		list(GET OPENCL_FLAGS_REPLACED 1 OPENCL_FLAGS_REPLACED_1)#flags for TAHITI
@@ -772,7 +773,7 @@ message(STATUS "OPENCL_VERSION = ${OPENCL_VERSION}")
   #endif()
 set (LOAD_CL_FLAGS FALSE)
 
-#set( bingenBinaryDir "${CMAKE_BINARY_DIR}/library/tools/bingen/staging" )
+#set( bingenBinaryDir "${clBLAS_BINARY_DIR}/library/tools/bingen/staging" )
 # if offline compilation is not chosen, bingen should not be built
 if(OPENCL_OFFLINE_BUILD_TAHITI_KERNEL OR OPENCL_OFFLINE_BUILD_HAWAII_KERNEL OR OPENCL_OFFLINE_BUILD_BONAIRE_KERNEL)
 	ExternalProject_Get_Property( bingen binary_dir )
@@ -789,21 +790,23 @@ if (LOAD_CL_FLAGS)
 add_custom_target( GEN_CLBIN )
 add_custom_command(TARGET GEN_CLBIN
                    PRE_BUILD
-				   COMMAND ${CMAKE_COMMAND} -DbingenBinaryDir=${bingenBinaryDir} -DCLTEMPLATE_PATH="${CMAKE_SOURCE_DIR}/library/blas/gens/clTemplates"
+				   COMMAND ${CMAKE_COMMAND} -DbingenBinaryDir=${bingenBinaryDir}
+                   -DCLTEMPLATE_PATH="${clBLAS_SOURCE_DIR}/library/blas/gens/clTemplates"
 	               -DLOAD_CL_FLAGS=${LOAD_CL_FLAGS} -DTAHITI_FLAG=${OPENCL_FLAGS_REPLACED_1} -DHAWAII1_FLAG=${OPENCL_FLAGS_REPLACED_3} -DHAWAII2_FLAG=${OPENCL_FLAGS_REPLACED_5} -DBONAIRE_FLAG=${OPENCL_FLAGS_REPLACED_7}
 				   -DENV_PATH=${ENV_PATH} -DOPENCL_OFFLINE_BUILD_HAWAII_KERNEL=${OPENCL_OFFLINE_BUILD_HAWAII_KERNEL} -DOPENCL_OFFLINE_BUILD_BONAIRE_KERNEL=${OPENCL_OFFLINE_BUILD_BONAIRE_KERNEL}
 				   -DOPENCL_OFFLINE_BUILD_TAHITI_KERNEL=${OPENCL_OFFLINE_BUILD_TAHITI_KERNEL}
-				   -P "${CMAKE_SOURCE_DIR}/library/bingen.cmake"
+                   -P "${clBLAS_SOURCE_DIR}/library/bingen.cmake"
 				   )
 add_dependencies( GEN_CLBIN bingen )
 else()
 add_custom_target( GEN_CLBIN )
 add_custom_command(TARGET GEN_CLBIN
                    PRE_BUILD
-				   COMMAND ${CMAKE_COMMAND} -DbingenBinaryDir=${bingenBinaryDir} -DCLTEMPLATE_PATH="${CMAKE_SOURCE_DIR}/library/blas/gens/clTemplates"
+				   COMMAND ${CMAKE_COMMAND} -DbingenBinaryDir=${bingenBinaryDir}
+                   -DCLTEMPLATE_PATH="${clBLAS_SOURCE_DIR}/library/blas/gens/clTemplates"
 				   -DOPENCL_OFFLINE_BUILD_HAWAII_KERNEL=${OPENCL_OFFLINE_BUILD_HAWAII_KERNEL} -DOPENCL_OFFLINE_BUILD_BONAIRE_KERNEL=${OPENCL_OFFLINE_BUILD_BONAIRE_KERNEL}
 				   -DOPENCL_OFFLINE_BUILD_TAHITI_KERNEL=${OPENCL_OFFLINE_BUILD_TAHITI_KERNEL}
-				   -P "${CMAKE_SOURCE_DIR}/library/bingen.cmake"
+                   -P "${clBLAS_SOURCE_DIR}/library/bingen.cmake"
 				   )
 add_dependencies( GEN_CLBIN bingen )
 endif()
@@ -819,9 +822,9 @@ else()
 endif()
 
 add_custom_target( GENERATE_CLT
-    COMMAND ${tplgenBinaryDir}/tplgen -o ${clBLAS_BINARY_DIR}/include -i ${CMAKE_SOURCE_DIR}/library/blas/gens/clTemplates/ ${SRC_CL_TEMPLATES}
+    COMMAND ${tplgenBinaryDir}/tplgen -o ${clBLAS_BINARY_DIR}/include -i ${clBLAS_SOURCE_DIR}/library/blas/gens/clTemplates/ ${SRC_CL_TEMPLATES}
     COMMAND ${tplgenBinaryDir}/tplgen -o ${clBLAS_BINARY_DIR}/include -i ${bingenBinaryDir}/ ${SRC_CL_TEMPLATES_GEN}
-    #WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/library/blas/gens/clTemplates
+    #WORKING_DIRECTORY ${clBLAS_SOURCE_DIR}/library/blas/gens/clTemplates
 	WORKING_DIRECTORY ${bingenBinaryDir}
 )
 
@@ -833,7 +836,7 @@ if( CMAKE_COMPILER_IS_GNUCC )
                     ${CMAKE_CURRENT_BINARY_DIR}/clBLAS.pc @ONLY )
 
     install( FILES ${CMAKE_CURRENT_BINARY_DIR}/clBLAS.pc
-             DESTINATION lib${SUFFIX_LIB}/pkgconfig )
+             DESTINATION lib${CLBLAS_SUFFIX_LIB}/pkgconfig )
 endif( )
 
 # clBLAS to depend on AutoGemm
@@ -846,21 +849,23 @@ else()
   MESSAGE( STATUS "clBLAS will NOT depend on ${AUTOGEMM_PRECOMPILED_KERNELS}" )
 endif()
 
-set(CLBLAS_ALL_SOURCES
-    ${CLBLAS_SOURCES}
-    ${GLOBAL_HEADERS}
-    ${SRC_BLAS_HEADERS}
-    ${SRC_BLAS_GENS_HEADERS}
-    ${AUTOGEMM_SRC}
-    ${AUTOGEMM_HEADERS}
-    ${AUTOGEMM_SCRIPTS}
-    ${AUTOGEMM_PRECOMPILED_KERNELS_CONDITIONAL}
-    ${USERGEMM_SRC}
-    ${USERGEMM_HEADERS}
-)
-add_definitions(-DOPENCL_VERSION="${OPENCL_VERSION}")
-add_library(clBLAS ${CLBLAS_ALL_SOURCES})
+add_library(clBLAS)
 add_dependencies(clBLAS GENERATE_CLT)
+
+target_compile_definitions(clBLAS PRIVATE -DOPENCL_VERSION="${OPENCL_VERSION}")
+
+target_sources(clBLAS
+    PRIVATE
+        ${GLOBAL_HEADERS}
+        ${CLBLAS_SOURCES}
+        ${SRC_BLAS_HEADERS}
+        ${SRC_BLAS_GENS_HEADERS}
+        ${AUTOGEMM_SRC}
+        ${AUTOGEMM_HEADERS}
+        ${AUTOGEMM_PRECOMPILED_KERNELS_CONDITIONAL}
+        ${USERGEMM_HEADERS}
+        ${USERGEMM_SRC}
+)
 
 function (add_target_definitions target)
   get_target_property(defs ${target} COMPILE_DEFINITIONS)
@@ -884,17 +889,29 @@ if ( ${PRECOMPILE_GEMM_ACTIVE} )
   set_target_properties(clBLAS PROPERTIES COMPILE_FLAGS -DAUTOGEMM_USE_PRE_COMPILED_KERNELS)
 endif()
 
+target_include_directories(clBLAS
+    PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${clBLAS_SOURCE_DIR}>
+        $<BUILD_INTERFACE:${clBLAS_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${clBLAS_BINARY_DIR}/include>
+    )
+
 set_target_properties(clBLAS PROPERTIES VERSION ${clBLAS_VERSION})
-set_target_properties(clBLAS PROPERTIES SOVERSION ${clBLAS_SOVERSION})
-set_target_properties( clBLAS PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/staging" )
+set_target_properties(clBLAS PROPERTIES SOVERSION ${clBLAS_VERSION_MAJOR})
+set_target_properties(clBLAS PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/staging" )
 target_link_libraries(clBLAS ${OPENCL_LIBRARIES} ${MATH_LIBRARY} ${THREAD_LIBRARY})
+
+if(NOT BUILD_SHARED_LIBS)
+    set_target_properties(clBLAS PROPERTIES POSITION_INDEPENDENT_CODE ON)
+endif()
 
 # CPack configuration; include the executable into the package
 install( TARGETS clBLAS
          EXPORT Library
-         RUNTIME DESTINATION bin${SUFFIX_BIN}
-         LIBRARY DESTINATION lib${SUFFIX_LIB}
-		 ARCHIVE DESTINATION lib${SUFFIX_LIB}/import
+         RUNTIME DESTINATION bin${CLBLAS_SUFFIX_BIN}
+         LIBRARY DESTINATION lib${CLBLAS_SUFFIX_LIB}
+		 ARCHIVE DESTINATION lib${CLBLAS_SUFFIX_LIB}/import
 		)
 
 # For debug builds, include the debug runtimes into the package for testing on non-developer machines
@@ -903,9 +920,9 @@ set( CMAKE_INSTALL_DEBUG_LIBRARIES true )
 set( CMAKE_INSTALL_DEBUG_LIBRARIES_ONLY true )
 
 if( WIN32 )
-    set( CLBLAS_RUNTIME_DESTINATION bin${SUFFIX_BIN} )
+    set( CLBLAS_RUNTIME_DESTINATION bin${CLBLAS_SUFFIX_BIN} )
 else( )
-    set( CLBLAS_RUNTIME_DESTINATION lib${SUFFIX_LIB} )
+    set( CLBLAS_RUNTIME_DESTINATION lib${CLBLAS_SUFFIX_LIB} )
 endif( )
 
 include( InstallRequiredSystemLibraries )

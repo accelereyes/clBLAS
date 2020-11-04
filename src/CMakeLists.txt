@@ -16,13 +16,17 @@
 
 cmake_minimum_required(VERSION 2.8)
 
+cmake_policy(SET CMP0048 NEW)
+cmake_policy(SET CMP0063 NEW)
+cmake_policy(SET CMP0077 NEW)
+
 #User toggle-able options that can be changed on the command line with -D
-option( BUILD_RUNTIME "Build the BLAS runtime library" ON )
-option( BUILD_TEST "Build the library testing suite (dependency on google test, Boost, and ACML/NETLIB BLAS)" ON )
-option( BUILD_PERFORMANCE "Copy the performance scripts that can measure and graph performance" OFF )
-option( BUILD_SAMPLE "Build the sample programs" OFF )
-option( BUILD_CLIENT "Build a command line clBLAS client program with a variety of configurable parameters (dependency on Boost)" OFF )
-option( BUILD_KTEST "A command line tool for testing single clBLAS kernel" ON )
+option( CLBLAS_BUILD_RUNTIME "Build the BLAS runtime library" ON )
+option( CLBLAS_BUILD_TEST "Build the library testing suite (dependency on google test, Boost, and ACML/NETLIB BLAS)" OFF )
+option( CLBLAS_BUILD_PERFORMANCE "Copy the performance scripts that can measure and graph performance" OFF )
+option( CLBLAS_BUILD_SAMPLE "Build the sample programs" OFF )
+option( CLBLAS_BUILD_CLIENT "Build a command line clBLAS client program with a variety of configurable parameters (dependency on Boost)" OFF )
+option( CLBLAS_BUILD_KTEST "A command line tool for testing single clBLAS kernel" OFF )
 option( BUILD_SHARED_LIBS "Build shared libraries" ON )
 
 #enable or disable offline compilation for different devices. Currently only Hawaii, Bonaire, Tahiti have the option.
@@ -95,33 +99,17 @@ if( CMAKE_GENERATOR MATCHES "NMake" )
   endif( )
 endif( )
 
-# If we are on linux, and we wish to link with the netlib BLAS implementation when BUILD_TEST is ON, we need to have a valid fortran compiler
-if(BUILD_TEST AND NOT CORR_TEST_WITH_ACML AND NOT WIN32 AND NOT APPLE)
-  project(clBLAS Fortran C CXX )
+# If we are on linux, and we wish to link with the netlib BLAS implementation when CLBLAS_BUILD_TEST is ON, we need to have a valid fortran compiler
+if(CLBLAS_BUILD_TEST AND NOT CORR_TEST_WITH_ACML AND NOT WIN32 AND NOT APPLE)
+    project(clBLAS VERSION 2.12.0 LANGUAGES Fortran C CXX)
 else( )
-  project(clBLAS C CXX)
+    project(clBLAS VERSION 2.12.0 LANGUAGES C CXX)
 endif( )
 
-# Define a version for the code
-if( NOT DEFINED clBLAS_VERSION_MAJOR )
-    set( clBLAS_VERSION_MAJOR 2 )
-endif( )
+# save any current module search path for restoration at end of script
+set(old_module_path ${CMAKE_MODULE_PATH})
 
-if( NOT DEFINED clBLAS_VERSION_MINOR )
-    set( clBLAS_VERSION_MINOR 12 )
-endif( )
-
-if( NOT DEFINED clBLAS_VERSION_PATCH )
-    set( clBLAS_VERSION_PATCH 0 )
-endif( )
-
-set( clBLAS_VERSION "${clBLAS_VERSION_MAJOR}.${clBLAS_VERSION_MINOR}.${clBLAS_VERSION_PATCH}")
-
-# Increment this if we break backward compatibility.
-set( clBLAS_SOVERSION 2 )
-
-# We have custom written Find* modules now in the root source directory
-set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR} )
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 
 # On windows, it's convenient to change the default install prefix such that it does NOT point to 'program files' (permissions problems)
 # Need to check out CMAKE_RUNTIME_OUTPUT_DIRECTORY variable, and see if that eliminates the need to modify install path
@@ -137,8 +125,8 @@ endif()
 
 # These variables are meant to contain string which should be appended to the installation paths
 # of library and executable binaries, respectively.  They are meant to be user configurable/overridable.
-set( SUFFIX_LIB_DEFAULT "" )
-set( SUFFIX_BIN_DEFAULT "" )
+set( CLBLAS_SUFFIX_LIB_DEFAULT "" )
+set( CLBLAS_SUFFIX_BIN_DEFAULT "" )
 
 if(TARGET_PLATFORM EQUAL 32 OR TARGET_PLATFORM EQUAL 64)
     set(TARGET_PLATFORM ${TARGET_PLATFORM} CACHE STRING "Target platform type (32-bit or 64-bit)" FORCE)
@@ -158,12 +146,12 @@ else()
     set(_arch "x86_64" INTERNAL)
     set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS TRUE)
     if( NOT APPLE )
-        set( SUFFIX_LIB_DEFAULT "64" )
+        set( CLBLAS_SUFFIX_LIB_DEFAULT "64" )
     endif( )
 endif()
 
-set( SUFFIX_LIB ${SUFFIX_LIB_DEFAULT} CACHE STRING "String to append to 'lib' install path" )
-set( SUFFIX_BIN ${SUFFIX_BIN_DEFAULT} CACHE STRING "String to append to 'bin' install path" )
+set( CLBLAS_SUFFIX_LIB ${CLBLAS_SUFFIX_LIB_DEFAULT} CACHE STRING "String to append to 'lib' install path" )
+set( CLBLAS_SUFFIX_BIN ${CLBLAS_SUFFIX_BIN_DEFAULT} CACHE STRING "String to append to 'bin' install path" )
 
 if( MSVC_IDE )
     set_property( GLOBAL PROPERTY USE_FOLDERS TRUE )
@@ -191,7 +179,7 @@ endif()
 
 # Find the BLAS library
 # TODO: maybe this could be written using the FindBLAS module in the future
-if( BUILD_TEST )
+if( CLBLAS_BUILD_TEST )
 	if(NOT CORR_TEST_WITH_ACML)
 	    if(APPLE)
 			find_library(BLAS_LIBRARIES Accelerate HINTS /System/Library/Frameworks/Accelerate.framework)
@@ -266,10 +254,10 @@ if( BUILD_TEST )
 	endif( )
 endif( )
 
-if( BUILD_CLIENT )
+if( CLBLAS_BUILD_CLIENT )
     if( NETLIB_FOUND )
     else( )
-        message( WARNING "Not find Netlib; BUILD_CLIENT needs the Netlib CBLAS library" )
+        message( WARNING "Not find Netlib; CLBLAS_BUILD_CLIENT needs the Netlib CBLAS library" )
     endif()
 endif()
 
@@ -290,9 +278,9 @@ message(STATUS "Boost_PROGRAM_OPTIONS_LIBRARY: ${Boost_PROGRAM_OPTIONS_LIBRARY}"
 
 if( NOT Boost_FOUND )
 	message( STATUS "The clBLAS ktest requires boost to be installed" )
-	set( BUILD_KTEST OFF )
+	set( CLBLAS_BUILD_KTEST OFF )
 	message( STATUS "The clBLAS client requires boost to be installed" )
-	set( BUILD_CLIENT OFF )
+	set( CLBLAS_BUILD_CLIENT OFF )
 endif()
 
 # Turn on maximum compiler verbosity
@@ -349,30 +337,30 @@ install( FILES
 			"./include" )
 
 
-if( BUILD_CLIENT AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/client")
+if( CLBLAS_BUILD_CLIENT AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/client")
 	add_subdirectory( client )
 endif( )
 
-if( BUILD_PERFORMANCE AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/scripts/perf" )
+if( CLBLAS_BUILD_PERFORMANCE AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/scripts/perf" )
 	add_subdirectory( scripts/perf )
 endif( )
 
-if( BUILD_RUNTIME AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/library" )
+if( CLBLAS_BUILD_RUNTIME AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/library" )
 #	add_subdirectory( library/tools/bingen )
 	add_subdirectory( library )
 	add_subdirectory( library/tools/tune )
-	if( BUILD_KTEST )
+	if( CLBLAS_BUILD_KTEST )
 		add_subdirectory( library/tools/ktest )
 	endif( )
 endif()
 
-if( BUILD_SAMPLE AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/samples" )
+if( CLBLAS_BUILD_SAMPLE AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/samples" )
 	add_subdirectory( samples )
 endif( )
 
 # The build server is not supposed to build or package any of the tests; build server script will define this on the command line with
 # cmake -G "Visual Studio 10 Win64" -D BUILDSERVER:BOOL=ON ../..
-if( BUILD_TEST )
+if( CLBLAS_BUILD_TEST )
 	if( IS_DIRECTORY "${PROJECT_SOURCE_DIR}/tests" )
 		add_subdirectory(tests)
 	endif( )
@@ -388,7 +376,7 @@ endif( )
 if(WIN32)
   set(destdir CMake)
 else()
-  set(destdir lib${SUFFIX_LIB}/cmake/clBLAS)
+  set(destdir lib${CLBLAS_SUFFIX_LIB}/cmake/clBLAS)
 endif()
 string(REGEX REPLACE "[^/]+" ".." reldir "${destdir}")
 configure_file(
@@ -431,3 +419,6 @@ set( CPACK_SOURCE_IGNORE_FILES "/\\\\.hg/;/\\\\.svn/;/\\\\.git/" )
 
 # Define all variables that influence CPack before including CPack, such as install targets
 include( CPack )
+
+# reset cmake module path to any earlier path
+set(CMAKE_MODULE_PATH ${old_module_path})

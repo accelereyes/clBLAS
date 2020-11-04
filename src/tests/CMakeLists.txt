@@ -278,7 +278,7 @@ endif()
 # It stitches together a path to a previously built static library, based on our 'make install' logic
 # Search for 64bit libs if FIND_LIBRARY_USE_LIB64_PATHS is set to true in the global environment, 32bit libs else
 get_property( LIB64 GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS )
-set( runtime.library "${CMAKE_INSTALL_PREFIX}/lib${SUFFIX_LIB}" )
+set( runtime.library "${CMAKE_INSTALL_PREFIX}/lib${CLBLAS_SUFFIX_LIB}" )
 
 if( WIN32 )
 	set( runtime.library "${runtime.library}/import/clBLAS${CMAKE_STATIC_LIBRARY_SUFFIX}" )
@@ -314,7 +314,7 @@ if( GTEST_FOUND )
 	    # The build server builds the library with gcc 4.1.2 to support Red Hat 5.5, but the test programs must be built with
 	    # gcc > 4.3.2 to support ACML.
 	    # If the runtime is being built by the project, use it, otherwise link to a runtime library specified in the install prefix
-	    if( BUILD_RUNTIME )
+	    if( CLBLAS_BUILD_RUNTIME )
 		    target_link_libraries(test-correctness ${ACML_LIBRARIES} ${GTEST_LIBRARIES} ${THREAD_LIBRARY} clBLAS)
 		    target_link_libraries(test-medium ${ACML_LIBRARIES} ${GTEST_LIBRARIES} ${THREAD_LIBRARY} clBLAS)
 		    target_link_libraries(test-short ${ACML_LIBRARIES} ${GTEST_LIBRARIES} ${THREAD_LIBRARY} clBLAS)
@@ -351,7 +351,7 @@ if( GTEST_FOUND )
 			set_target_properties( test-short PROPERTIES LINKER_LANGUAGE Fortran )
 		endif( )
 
-	    if( BUILD_RUNTIME )
+	    if( CLBLAS_BUILD_RUNTIME )
 			if( NETLIB_FOUND )
 				target_link_libraries(test-correctness ${Netlib_LIBRARIES} ${GTEST_LIBRARIES} ${THREAD_LIBRARY} clBLAS)
 				target_link_libraries(test-medium ${Netlib_LIBRARIES} ${GTEST_LIBRARIES} ${THREAD_LIBRARY} clBLAS)
@@ -380,17 +380,14 @@ if( GTEST_FOUND )
 
     # CPack configuration; include the executable into the package
     install( TARGETS test-correctness test-medium test-short
-            RUNTIME DESTINATION bin${SUFFIX_BIN}
-            LIBRARY DESTINATION lib${SUFFIX_LIB}
-            ARCHIVE DESTINATION lib${SUFFIX_LIB}/import
+            RUNTIME DESTINATION bin${CLBLAS_SUFFIX_BIN}
+            LIBRARY DESTINATION lib${CLBLAS_SUFFIX_LIB}
+            ARCHIVE DESTINATION lib${CLBLAS_SUFFIX_LIB}/import
             )
 
-    get_target_property( testLocation test-correctness LOCATION )
-
-    configure_file(
-        "${CMAKE_CURRENT_SOURCE_DIR}/copyTestDependencies.cmake.in"
-        "${CMAKE_CURRENT_BINARY_DIR}/copyTestDependencies.cmake"
-        @ONLY
+    file(GENERATE
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/copyTestDependencies.cmake
+        INPUT ${CMAKE_CURRENT_SOURCE_DIR}/copyTestDependencies.cmake.in
     )
 
     # Register script at run at install time to analyze the executable and copy dependencies into package
@@ -409,7 +406,7 @@ if( GTEST_FOUND )
         set_target_properties( test-performance PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/staging" )
 
 
-		if( BUILD_RUNTIME )
+		if( CLBLAS_BUILD_RUNTIME )
 			target_link_libraries(test-performance ${GTEST_LIBRARIES} ${TIME_LIBRARY} ${THREAD_LIBRARY} clBLAS)
 		else()
 			target_link_libraries( test-performance ${GTEST_LIBRARIES} ${TIME_LIBRARY} ${OPENCL_LIBRARIES} ${runtime.library} )
@@ -419,9 +416,9 @@ if( GTEST_FOUND )
 
         # CPack configuration; include the executable into the package
         install( TARGETS test-performance
-                RUNTIME DESTINATION bin${SUFFIX_BIN}
-                LIBRARY DESTINATION lib${SUFFIX_LIB}
-                ARCHIVE DESTINATION lib${SUFFIX_LIB}/import
+                RUNTIME DESTINATION bin${CLBLAS_SUFFIX_BIN}
+                LIBRARY DESTINATION lib${CLBLAS_SUFFIX_LIB}
+                ARCHIVE DESTINATION lib${CLBLAS_SUFFIX_LIB}/import
                 )
 	endif()
 
@@ -432,7 +429,7 @@ if( GTEST_FOUND )
 								  ${FUNC_HEADERS} ${TESTS_HEADERS})
 
     set_target_properties( test-functional PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/staging" )
-	if( BUILD_RUNTIME )
+	if( CLBLAS_BUILD_RUNTIME )
 		target_link_libraries(test-functional ${GTEST_LIBRARIES} ${TIME_LIBRARY} ${THREAD_LIBRARY} clBLAS )
 	else()
 		target_link_libraries(test-functional ${GTEST_LIBRARIES} ${TIME_LIBRARY} ${THREAD_LIBRARY} ${OPENCL_LIBRARIES} ${runtime.library} )
@@ -442,8 +439,8 @@ if( GTEST_FOUND )
 
     # CPack configuration; include the executable into the package
     install( TARGETS test-functional
-            RUNTIME DESTINATION bin${SUFFIX_BIN}
-            LIBRARY DESTINATION lib${SUFFIX_LIB}
-            ARCHIVE DESTINATION lib${SUFFIX_LIB}/import
+            RUNTIME DESTINATION bin${CLBLAS_SUFFIX_BIN}
+            LIBRARY DESTINATION lib${CLBLAS_SUFFIX_LIB}
+            ARCHIVE DESTINATION lib${CLBLAS_SUFFIX_LIB}/import
             )
 endif()

@@ -272,7 +272,7 @@ set_property( TARGET example_sasum PROPERTY FOLDER "Samples")
 
 # CPack configuration; include the executable into the package
 if( WIN32 )
-    set( CLBLAS_EXAMPLE_INSTALL_DESTINATION bin${SUFFIX_BIN})
+    set( CLBLAS_EXAMPLE_INSTALL_DESTINATION bin${CLBLAS_SUFFIX_BIN})
 else( )
     set( CLBLAS_EXAMPLE_INSTALL_DESTINATION share/clBLAS/samples)
 endif()
@@ -290,8 +290,8 @@ install( TARGETS example_sgemm example_sgemv example_ssymv example_ssyrk
 
          version
          RUNTIME DESTINATION ${CLBLAS_EXAMPLE_INSTALL_DESTINATION}
-         LIBRARY DESTINATION lib${SUFFIX_LIB}
-         ARCHIVE DESTINATION lib${SUFFIX_LIB}/import
+         LIBRARY DESTINATION lib${CLBLAS_SUFFIX_LIB}
+         ARCHIVE DESTINATION lib${CLBLAS_SUFFIX_LIB}/import
         )
 
 configure_file( "${PROJECT_SOURCE_DIR}/samples/CMakeLists.pack"

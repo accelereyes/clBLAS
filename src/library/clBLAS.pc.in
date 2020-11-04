@@ -1,7 +1,7 @@
 prefix=@CMAKE_INSTALL_PREFIX@
-exec_prefix=${prefix}/bin@SUFFIX_BIN@
+exec_prefix=${prefix}/bin@CLBLAS_SUFFIX_BIN@
 includedir=${prefix}/include
-libdir=${prefix}/lib@SUFFIX_LIB@
+libdir=${prefix}/lib@CLBLAS_SUFFIX_LIB@
 
 Name: clBLAS
 Description: Open source OpenCL BLAS library

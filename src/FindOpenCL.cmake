@@ -19,7 +19,7 @@
 #
 # Defines the following variables:
 #
-#   OPENCL_FOUND - Found the OPENCL framework
+#   OpenCL_FOUND - Found the OPENCL framework
 #   OPENCL_INCLUDE_DIRS - Include directories
 #
 # Also defines the library variables below as normal
@@ -154,12 +154,12 @@ if( (OpenCL_FIND_VERSION VERSION_LESS "2.0") AND (OpenCL_VERSION VERSION_GREATER
 endif( )
 
 include( FindPackageHandleStandardArgs )
-FIND_PACKAGE_HANDLE_STANDARD_ARGS( OPENCL
+FIND_PACKAGE_HANDLE_STANDARD_ARGS( OpenCL
     REQUIRED_VARS OPENCL_LIBRARIES OPENCL_INCLUDE_DIRS
     VERSION_VAR OpenCL_VERSION
     )
 
-if( NOT OPENCL_FOUND )
+if( NOT OpenCL_FOUND )
     message( STATUS "FindOpenCL looked for libraries named: OpenCL" )
 else( )
     message(STATUS "FindOpenCL ${OPENCL_LIBRARIES}, ${OPENCL_INCLUDE_DIRS}")

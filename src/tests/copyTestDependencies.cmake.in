@@ -7,13 +7,15 @@ include( GetPrerequisites )
 # The Microsoft IDE presents a challenge because the full configuration is not known at cmake time
 # This logic allows us to 'substitute' the proper confguration at install time
 if( "${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "Debug" )
-    string( REPLACE "\$(Configuration)" "Debug" fixedTestLocation "@testLocation@" )
+    string( REPLACE "\$(Configuration)" "Debug" fixedTestLocation $<TARGET_FILE:test-correctness> )
 elseif( "${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "Release" )
-    string( REPLACE "\$(Configuration)" "Release" fixedTestLocation "@testLocation@" )
+    string( REPLACE "\$(Configuration)" "Release" fixedTestLocation $<TARGET_FILE:test-correctness> )
 elseif( "${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "MinSizeRel" )
-    string( REPLACE "\$(Configuration)" "MinSizeRel" fixedTestLocation "@testLocation@" )
+    string( REPLACE "\$(Configuration)" "MinSizeRel" fixedTestLocation
+        $<TARGET_FILE:test-correctness> )
 elseif( "${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "RelwithDebInfo" )
-    string( REPLACE "\$(Configuration)" "RelwithDebInfo" fixedTestLocation "@testLocation@" )
+    string( REPLACE "\$(Configuration)" "RelwithDebInfo" fixedTestLocation
+        $<TARGET_FILE:test-correctness> )
 endif( )
 
 #    message( fixedTestLocation ": ${fixedTestLocation}" )
@@ -23,9 +25,9 @@ get_filename_component( testDir "${fixedTestLocation}" PATH )
 
 set( installPath "" )
 if( WIN32 )
-    set( installPath "${CMAKE_INSTALL_PREFIX}/bin@SUFFIX_BIN@" )
+    set( installPath "${CMAKE_INSTALL_PREFIX}/bin@CLBLAS_SUFFIX_BIN@" )
 else( )
-    set( installPath "${CMAKE_INSTALL_PREFIX}/lib@SUFFIX_LIB@" )
+    set( installPath "${CMAKE_INSTALL_PREFIX}/lib@CLBLAS_SUFFIX_LIB@" )
 endif( )
 
 # Only search for dependencies that have ROOT defined

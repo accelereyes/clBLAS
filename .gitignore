@@ -26,3 +26,5 @@
 
 # python compiled files
 *.pyc
+
+build/
